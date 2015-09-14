@@ -12,12 +12,16 @@ namespace TP_Tool_11._2
 {
     public partial class DatagridViewer : Form
     {
-        public ArcadiaManager arcadia_manager { get; set; }
+        private ArcadiaManager arcadia_manager { get; set; }
+        private String[] dataview_columns { get; set; }
 
         public DatagridViewer(ArcadiaManager arcadia_manager)
         {
             InitializeComponent();
             this.arcadia_manager = arcadia_manager;
+
+            //load desired columns from the xml file
+            dataview_columns = arcadia_manager.base_arcadia_manager.base_xml_file.readProperty("dataview_columns").Split(',');
             this.tableLayoutPanel1.Controls.Add(arcadia_manager.datagrid);
         }
 
@@ -35,6 +39,22 @@ namespace TP_Tool_11._2
                 }
                 catch { }
             }
+        }
+
+        private void cb_advanced_CheckedChanged(object sender, EventArgs e)
+        {
+            //hide-show all columns except those in the settings file
+            foreach (DataGridViewColumn column in arcadia_manager.datagrid.Columns)
+                if (!dataview_columns.Contains(column.HeaderText))
+                    column.Visible = false || cb_advanced.Checked;
+                else
+                    column.Visible = true;
+        }
+
+        private void DatagridViewer_Load(object sender, EventArgs e)
+        {
+            //activate on check event to get the unneeded columns hidden
+            cb_advanced.Checked = false;
         }
     }
 }

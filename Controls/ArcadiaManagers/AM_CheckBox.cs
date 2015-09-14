@@ -9,32 +9,32 @@ using System.Windows.Forms;
 
 namespace TP_Tool_11._2.Controls.ArcadiaManagers
 {
-    public partial class AM_TextBox : UserControl
+    public partial class AM_CheckBox : UserControl
     {
         [Browsable(true)]
         [DefaultValue(true)]
 
         ToolTip tooltip = new ToolTip();
 
-        public override String Text
+        public Boolean Checked
         {
-            get { return am_tb.Text; }
-            set { am_tb.Text = value; Invalidate(); }
+            get { return AM_cb.Checked; }
+            set { AM_cb.Checked = value; Invalidate(); }
         }
 
         public String TextLabel
         {
-            get { return am_lb.Text; }
-            set { am_lb.Text = value; }
+            get { return AM_cb.Text; }
+            set { AM_cb.Text = value; }
         }
 
         public String TextTooltip
         {
-            get{return tooltip.GetToolTip(am_tooltip);}
-            set{tooltip.SetToolTip(am_tooltip, value);}
+            get { return tooltip.GetToolTip(am_tooltip); }
+            set { tooltip.SetToolTip(am_tooltip, value); }
         }
 
-        public AM_TextBox()
+        public AM_CheckBox()
         {
             InitializeComponent();
 

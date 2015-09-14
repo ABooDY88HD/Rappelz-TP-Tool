@@ -18,7 +18,12 @@ namespace TP_Tool_11._2.Classes.Common
             xml = XElement.Load(path);
         }
 
-        public String readAttribute(String id, String language)
+        public String readTrnaslation(String id)
+        {
+            return readTrnaslation(id, Properties.Settings.Default.language);
+        }
+
+        public String readTrnaslation(String id, String language)
         {
             IEnumerable<XElement> translation_element =
                 from el in xml.Elements("translation")
@@ -35,6 +40,22 @@ namespace TP_Tool_11._2.Classes.Common
                 foreach (XElement element in language_element)
                     return ((string)element.Value);
             }
+
+            //not found
+            return "";
+        }
+
+
+        public String readProperty(String id)
+        {
+            IEnumerable<XElement> property_element =
+                from el in xml.Elements("property")
+                where (string)el.Attribute("id") == id
+                select el;
+
+            //get first element
+            foreach (XElement element in property_element)
+                return ((string)element.Value);
 
             //not found
             return "";

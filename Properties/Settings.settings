@@ -35,5 +35,8 @@
     <Setting Name="ip" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
+    <Setting Name="language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ar</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

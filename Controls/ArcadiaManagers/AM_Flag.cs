@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TP_Tool_11._2.Controls.ArcadiaManagers
 {
-    public partial class AM_TextBox : UserControl
+    public partial class AM_Flag : UserControl
     {
         [Browsable(true)]
         [DefaultValue(true)]
@@ -30,11 +30,11 @@ namespace TP_Tool_11._2.Controls.ArcadiaManagers
 
         public String TextTooltip
         {
-            get{return tooltip.GetToolTip(am_tooltip);}
-            set{tooltip.SetToolTip(am_tooltip, value);}
+            get { return tooltip.GetToolTip(am_tooltip); }
+            set { tooltip.SetToolTip(am_tooltip, value); }
         }
 
-        public AM_TextBox()
+        public AM_Flag()
         {
             InitializeComponent();
 
