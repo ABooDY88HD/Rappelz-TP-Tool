@@ -52,6 +52,7 @@
     <Compile Include="Classes\ArcadiaManagers\BaseArcadiaManager.cs" />
     <Compile Include="Classes\Common\functions.cs" />
     <Compile Include="Classes\Common\sql.cs" />
+    <Compile Include="Classes\Common\XML.cs" />
     <Compile Include="Controls\ArcadiaManagers\AM_TextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

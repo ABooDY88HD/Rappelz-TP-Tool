@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TP_Tool_11._2.Classes.Common;
 
 namespace TP_Tool_11._2
 {
@@ -22,6 +23,7 @@ namespace TP_Tool_11._2
         public SkillsEditor()
         {
             InitializeComponent();
+            new XML("SkillsEditor.xml");
 
             base_datagrid = new DataGridView();
             base_button_data_viewer = bt_dataviewer;
