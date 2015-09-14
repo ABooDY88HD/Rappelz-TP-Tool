@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TP_Tool_11._2.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="username" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="arcadia" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Arcadia</Value>
+    </Setting>
+    <Setting Name="auth" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Auth</Value>
+    </Setting>
+    <Setting Name="telecaster" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Telecaster</Value>
+    </Setting>
+    <Setting Name="path_client" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="path_icons" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="path_auth" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="path_upload" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="path_gameserver" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
