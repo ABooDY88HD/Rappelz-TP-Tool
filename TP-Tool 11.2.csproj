@@ -48,11 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ArcadiaManagers\ArcadiaManager.cs" />
-    <Compile Include="Classes\ArcadiaManagers\BaseArcadiaManager.cs" />
+    <Compile Include="Classes\ArcadiaManager\ArcadiaManager.cs" />
+    <Compile Include="Classes\ArcadiaManager\BaseArcadiaManager.cs" />
+    <Compile Include="Classes\Common\scramble.cs" />
     <Compile Include="Classes\Common\functions.cs" />
     <Compile Include="Classes\Common\sql.cs" />
+    <Compile Include="Classes\Common\strings.cs" />
     <Compile Include="Classes\Common\XML.cs" />
+    <Compile Include="Classes\RDBManager\Instruction.cs" />
+    <Compile Include="Classes\RDBManager\InstructionsManager.cs" />
+    <Compile Include="Classes\RDBManager\TPTEngine.cs" />
+    <Compile Include="Classes\RDBManager\VariablesManager.cs" />
     <Compile Include="Controls\ArcadiaManagers\AM_CheckBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -71,17 +77,35 @@
     <Compile Include="Controls\ArcadiaManagers\AM_TextBox.Designer.cs">
       <DependentUpon>AM_TextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ArcadiaManagers\AM_TextFromData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ArcadiaManagers\AM_TextFromData.Designer.cs">
+      <DependentUpon>AM_TextFromData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Common\DatagridViewer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Common\DatagridViewer.Designer.cs">
       <DependentUpon>DatagridViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Common\DataPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Common\DataPicker.Designer.cs">
+      <DependentUpon>DataPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Common\Flags.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Common\Flags.Designer.cs">
       <DependentUpon>Flags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RDB\RDBManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RDB\RDBManager.Designer.cs">
+      <DependentUpon>RDBManager.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,11 +138,20 @@
     <EmbeddedResource Include="Controls\ArcadiaManagers\AM_TextBox.resx">
       <DependentUpon>AM_TextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ArcadiaManagers\AM_TextFromData.resx">
+      <DependentUpon>AM_TextFromData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Common\DatagridViewer.resx">
       <DependentUpon>DatagridViewer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Common\DataPicker.resx">
+      <DependentUpon>DataPicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Common\Flags.resx">
       <DependentUpon>Flags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RDB\RDBManager.resx">
+      <DependentUpon>RDBManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SkillsEditor.resx">
       <DependentUpon>SkillsEditor.cs</DependentUpon>

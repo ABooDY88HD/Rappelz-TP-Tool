@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TP_Tool_11._2.Classes.ArcadiaManager;
 using TP_Tool_11._2.Classes.Common;
 
 namespace TP_Tool_11._2
@@ -26,7 +27,7 @@ namespace TP_Tool_11._2
             InitializeComponent();
 
             //path of the xml file that contains the settings of the form
-            base_xml_file = new XML("ArcadiaManager/SkillsEditor.xml");
+            base_xml_file = new XML("ArcadiaManager/SkillsEditor/main.xml");
 
             //the button that will show the data where the user selects a row to build on
             base_button_data_viewer = bt_dataviewer;

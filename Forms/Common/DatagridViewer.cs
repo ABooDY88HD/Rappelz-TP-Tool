@@ -6,9 +6,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TP_Tool_11._2.Classes.ArcadiaManager;
 using TP_Tool_11._2.Classes.Common;
 
-namespace TP_Tool_11._2
+namespace TP_Tool_11._2.Forms.Common
 {
     public partial class DatagridViewer : Form
     {

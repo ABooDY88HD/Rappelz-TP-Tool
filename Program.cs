@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TP_Tool_11._2.Forms.RDB;
 
 namespace TP_Tool_11._2
 {
@@ -16,7 +17,7 @@ namespace TP_Tool_11._2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new SkillsEditor());
+            Application.Run(new RDBManager());
         }
     }
 

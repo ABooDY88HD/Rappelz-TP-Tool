@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using TP_Tool_11._2.Classes.Common;
 
-namespace TP_Tool_11._2
+namespace TP_Tool_11._2.Classes.ArcadiaManager
 {
     public interface BaseArcadiaManager
     {

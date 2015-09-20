@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TP_Tool_11._2.Classes.Common;
 using TP_Tool_11._2.Controls.ArcadiaManagers;
+using TP_Tool_11._2.Forms.Common;
 
-namespace TP_Tool_11._2
+namespace TP_Tool_11._2.Classes.ArcadiaManager
 {
     public class ArcadiaManager
     {
@@ -30,7 +33,7 @@ namespace TP_Tool_11._2
 
             fetch_database_data();
             format_datagrid();
-            Initialize_tooltip();
+            initialize_controls();
 
             //event listener datagrid_cell_enter
             datagrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.datagrid_cell_entered);
@@ -90,6 +93,8 @@ namespace TP_Tool_11._2
                     Control control = (Control)((Form)base_arcadia_manager).Controls.Find("tp_" + c.HeaderText, true)[0];
                     if (control is AM_TextBox)
                         ((AM_TextBox)control).Text = datagrid.Rows[datagrid.CurrentCell.RowIndex].Cells[c.HeaderText].Value.ToString();
+                    if (control is AM_TextFromData)
+                        ((AM_TextFromData)control).Text = datagrid.Rows[datagrid.CurrentCell.RowIndex].Cells[c.HeaderText].Value.ToString();
                     if (control is AM_CheckBox)
                         ((AM_CheckBox)control).Checked = (datagrid.Rows[datagrid.CurrentCell.RowIndex].Cells[c.HeaderText].Value.ToString() == "1" || datagrid.Rows[datagrid.CurrentCell.RowIndex].Cells[c.HeaderText].Value.ToString() == "true");
                 }
@@ -102,7 +107,30 @@ namespace TP_Tool_11._2
             new DatagridViewer(this).ShowDialog();
         }
 
-        private void Initialize_tooltip()
+        private void initialize_controls()
+        {
+            foreach(String file in Directory.GetFiles(Path.GetDirectoryName(base_arcadia_manager.base_xml_file.path)))
+            {
+                if (((Form)base_arcadia_manager).Controls.Find(Path.GetFileNameWithoutExtension(file), true).Length > 0)
+                {
+                    Control control = (Control)((Form)base_arcadia_manager).Controls.Find(Path.GetFileNameWithoutExtension(file), true)[0];
+
+                    if (control is AM_TextFromData)
+                    {
+                        AM_TextFromData mycontrol = (AM_TextFromData)control;
+                        XML xml_file = new XML(file);
+
+                        mycontrol.SelectQuery = xml_file.readProperty("select_query");
+                        mycontrol.DefaultFilter = xml_file.readProperty("string_filter");
+                        mycontrol.hasIcon = xml_file.readProperty("string_filter") == "true" ? true : false;
+                    }
+                }
+            }
+
+            initialize_tooltip();
+        }
+
+        private void initialize_tooltip()
         {
 
             foreach (DataColumn c in ((DataTable)datagrid.DataSource).Columns)

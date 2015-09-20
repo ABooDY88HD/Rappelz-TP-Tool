@@ -97,7 +97,7 @@ namespace TP_Tool_11._2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\imgs")]
         public string path_icons {
             get {
                 return ((string)(this["path_icons"]));

@@ -21,7 +21,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="path_icons" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">D:\imgs</Value>
     </Setting>
     <Setting Name="path_auth" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
