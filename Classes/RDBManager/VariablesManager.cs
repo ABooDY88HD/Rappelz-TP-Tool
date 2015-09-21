@@ -41,14 +41,28 @@ namespace TP_Tool_11._2.Classes.RDBManager
             }
         }
 
-        public String get_var(String name)
+        public String get_var(String name, DataRow row)
         {
-            int ind = Array.IndexOf(VariableName, name);
+            int ind_header = Array.IndexOf(Manager.Header, name);
+            int ind_var = Array.IndexOf(VariableName, name);
 
-            if (ind > 0)
-                return VariableValue[ind];
+            if (ind_header >= 0)
+                return row[ind_header].ToString();
+
+            if (ind_var >= 0)
+                return VariableValue[ind_var];
 
             return "";
+        }
+
+        public Boolean var_exists(String name, DataRow row)
+        {
+            int ind_header = Array.IndexOf(Manager.Header, name);
+            int ind_var = Array.IndexOf(VariableName, name);
+
+            if (ind_var >= 0 || ind_header >= 0)
+                return true;
+            return false;
         }
 
         public String evaluate(string expression, DataRow row)
@@ -56,7 +70,7 @@ namespace TP_Tool_11._2.Classes.RDBManager
             if (String.IsNullOrWhiteSpace(expression))
                 return expression;
 
-            if (Manager.Header.Contains(expression))
+            if (row != null && Manager.Header.Contains(expression))
                 return row[expression].ToString();
 
             if (VariableName.Contains(expression))
@@ -75,7 +89,7 @@ namespace TP_Tool_11._2.Classes.RDBManager
             DataRow rowadd = Table.NewRow();
             Table.Rows.Add(rowadd);
 
-            return double.Parse((string)rowadd["expression"]).ToString();
+            return ((string)rowadd["expression"]).ToString();
         }
     }
 }

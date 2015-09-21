@@ -11,8 +11,8 @@ namespace TP_Tool_11._2.Classes.RDBManager
 {
     class Instruction
     {
-        public static String[] Types = { "binary", "bit", "uint8", "int8", "uint16", "int16", "uint32", "int32", "monid", "int64", "uint64", "float", "single", "double", "datetime", "string", "bytes", "lenstring" };
-        public static int[] Lengths = {     1,       1,      1,       1,       2,       2,        4,        4,      4,       8,        8,       4,        4,        8,        8,        -10,      -10,       -11 };
+        public static String[] Types = { "binary", "bit", "uint8", "int8", "uint16", "int16", "uint32", "int32", "monid", "int64", "uint64", "float", "single", "datetime", "double", "string", "bytes", "lenstring" };
+        public static int[] Lengths = {     1,       1,      1,       1,       2,       2,        4,        4,      4,       8,        8,       4,        4,        4,        8,        -10,      -10,       -11 };
         public static Char[] Arethmitic = " +-/*&()".ToCharArray();
 
 
@@ -26,6 +26,7 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
         public String Destination { get; set; }
         public String Destinationformula { get; set; }
+        public String DestinationConstant { get; set; }
 
         public int Length { get; set; }
 
@@ -33,10 +34,49 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
         private Boolean Dynamic { get; set; }
 
+        public String IfConition { get; set; }
+        public Instruction IfInstruction { get; set; }
+        public Instruction ElseInstruction { get; set; }
+
+        public void CopyFrom(Instruction instruction)
+        {
+            this.Code = instruction.Code;
+            this.ReadValue = instruction.ReadValue;
+            this.WriteValue = instruction.WriteValue;
+            this.Type = instruction.Type;
+            this.TypeVariable = instruction.TypeVariable;
+            this.Destination = instruction.Destination;
+            this.DestinationConstant = instruction.DestinationConstant;
+            this.Destinationformula = instruction.Destinationformula;
+            this.Length = instruction.Length;
+            this.Variables = instruction.Variables;
+            this.Dynamic = instruction.Dynamic;
+            this.IfConition = instruction.IfConition;
+            this.IfInstruction = instruction.IfInstruction;
+            this.ElseInstruction = instruction.ElseInstruction;
+        }
+
         public Instruction(String Code, VariablesManager Variables)
         {
             this.Code = Code;
             this.Variables = Variables;
+
+            //special treatment for if statements
+            if (Code.Substring(0,2) == "if")
+            {
+                Type = "if";
+                Length = 0;
+                Dynamic = true;
+                IfConition = Code.Split(new char[] { '(', ')' }, StringSplitOptions.RemoveEmptyEntries)[1];
+
+                IfInstruction = new Instruction(Code.Split(new char[] { '{', '}' }, StringSplitOptions.RemoveEmptyEntries)[1], Variables);
+
+                if (Code.Contains("else"))
+                    ElseInstruction = new Instruction(Code.Split(new char[] { '{', '}' }, StringSplitOptions.RemoveEmptyEntries)[3], Variables);
+                return;
+            }
+
+
             Dynamic = false;
 
             Type = Code.Split(new string[] { "->" }, StringSplitOptions.None)[0];
@@ -46,6 +86,9 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
             foreach (Char c in Arethmitic)
                 Destination = Destination.Split(c)[0];
+
+            if (Destinationformula.Contains("(") && Destinationformula.Contains(")"))
+                DestinationConstant = Destinationformula.Split('(')[1].Split(')')[0];
 
             Length = Array.IndexOf(Types, Type);
             Length = Length < 0 ? Length : Lengths[Length];
@@ -60,11 +103,19 @@ namespace TP_Tool_11._2.Classes.RDBManager
                 else
                     Dynamic = true;
             }
+
+            if(Length < 0 && !Dynamic)
+            {
+                //treat as variable
+                TypeVariable = Type;
+                Type = "variable";
+                Length = 0;
+            }
         }
 
         public void pre_read(DataRow row)
         {
-            if (Dynamic)
+            if (Dynamic && !new String[] { "variable", "if"}.Contains(Type))
             {
                 TypeVariable = Variables.evaluate(Code.Split(new string[] { "->" }, StringSplitOptions.None)[0].Split('@')[1], row);
                 Length = Convert.ToInt32(TypeVariable);
@@ -83,7 +134,7 @@ namespace TP_Tool_11._2.Classes.RDBManager
             switch (Type)
             {
                 case "binary":
-                    ReadValue = Reverse(Convert.ToString(bytes[0], 2));
+                    ReadValue = Convert.ToInt32(Reverse(Convert.ToString(bytes[0], 2))).ToString("D" + Destination.Split(',').Length);
                     break;
                 case "bit":
                     ReadValue = bytes[0] == 0 ? "0" : "1";
@@ -144,6 +195,20 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
                 case "lenstring":
                     ReadValue = "";
+                    break;
+
+                case "variable":
+                    if (Variables.var_exists(TypeVariable, row))
+                        ReadValue = Variables.get_var(TypeVariable, row);
+                    else
+                    {
+                        ReadValue = TypeVariable;
+                        Variables.set_var(Destination, ReadValue);
+                    }
+                    break;
+
+                case "if":
+                    ReadValue = Variables.evaluate(IfConition, row);
                     break;
             }
         }

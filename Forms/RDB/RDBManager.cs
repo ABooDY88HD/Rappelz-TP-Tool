@@ -13,12 +13,13 @@ namespace TP_Tool_11._2.Forms.RDB
 {
     public partial class RDBManager : Form
     {
+        String path = @"L:\TwilightPrince\Servers\Rappelz\Clinet\Resource 8.1\rdb\";
         public RDBManager()
         {
             InitializeComponent();
             Stopwatch timerST = Stopwatch.StartNew();
-            TPTEngine engine = new TPTEngine("NPCResource8.1 By TwilightPrince", dg_rdb);
-            engine.read(@"L:\TwilightPrince\Servers\Rappelz\Clinet\Resource 8.1\rdb\db_npcresource.rdb");
+            TPTEngine engine = new TPTEngine("SkillTreeResource 8.1 By TwilightPrince", dg_rdb);
+            engine.read(path + "db_skilltree.rdb");
 
             timerST.Stop();
             Debug.WriteLine(timerST.Elapsed.ToString("mm':'ss':'fff"));

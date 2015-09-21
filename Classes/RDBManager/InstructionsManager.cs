@@ -17,10 +17,11 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
         private String[] ReadData { get; set; }
         private String[] WriteData { get; set; }
-
+        private String[] InitData { get; set; }
+        
         public Instruction[] ReadInstructions { get; set; }
         public Instruction[] WriteInstructions { get; set; }
-
+        public Instruction[] InitialInstructions { get; set; }
         public InstructionsManager(String[] Instructions)
         {
             this.Instructions = Instructions;
@@ -32,7 +33,8 @@ namespace TP_Tool_11._2.Classes.RDBManager
 
             ReadData = fetch_sections("-");
             WriteData = fetch_sections("$");
-
+            InitData = fetch_sections("!");
+            
             update_instructions();
         }
 
@@ -61,12 +63,16 @@ namespace TP_Tool_11._2.Classes.RDBManager
         {
             ReadInstructions = new Instruction[ReadData.Length];
             WriteInstructions = new Instruction[WriteData.Length];
+            InitialInstructions = new Instruction[InitData.Length];
 
             for (int i = 0; i < ReadData.Length; i++)
                 ReadInstructions[i] = new Instruction(ReadData.ElementAt(i), Variables);
 
             for (int i = 0; i < WriteData.Length; i++)
                 WriteInstructions[i] = new Instruction(WriteData.ElementAt(i), Variables);
+
+            for (int i = 0; i < InitData.Length; i++)
+                InitialInstructions[i] = new Instruction(InitData.ElementAt(i), Variables);
         }
     }
 }
